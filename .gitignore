@@ -1,6 +1,10 @@
 # Dados do python
 __pycache__
-.pytes_cache
+
+# Testes
+.pytest_cache
+.coverage
+htmlcov
 
 # IDEs
 .vscode/

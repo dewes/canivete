@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 
-from app.routers.textos import router
+from canivete.routers.textos import router
 
 client = TestClient(router)
 
@@ -15,3 +15,14 @@ def test_extrai_emails():
         })
     assert response.status_code == 200
     assert response.json() == ['teste@teste.com', 'novo@novo.com.br']
+
+
+def test_extrai_telefone():
+    response = client.post(
+        "/telefones",
+        json={
+            "texto":
+            "Esse texto contém os telefones 11999999999 e 6112341234 e (21)12345-6789."
+        })
+    assert response.status_code == 200
+    assert response.json() == ['11999999999', '6112341234', '(21)12345-6789']

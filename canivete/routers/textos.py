@@ -7,6 +7,7 @@ router = APIRouter()
 
 
 class Texto(BaseModel):
+    """ Classe para definir o modelo a ser passado via JSON para as funções. """
     texto: str
 
     class Config:
