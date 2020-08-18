@@ -6,8 +6,6 @@ from .routers import textos
 
 app = FastAPI()
 
-app.include_router(textos.router)
-
 app.include_router(
     textos.router,
     prefix="/texto",
