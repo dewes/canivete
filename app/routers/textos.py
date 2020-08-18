@@ -1,6 +1,6 @@
 import re
 from fastapi import APIRouter
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Optional, List
 
 router = APIRouter()
@@ -13,7 +13,7 @@ class Texto(BaseModel):
         schema_extra = {
             "example": {
                 "texto":
-                "Um texto bem comprido contendo dados como Nomes, Emails, Telefones."
+                "Um texto contendo dados como Nomes, Emails, Telefones."
             }
         }
 
@@ -28,8 +28,8 @@ def extrai_nomes(texto: Texto):
     return None
 
 
-@router.post("/emails")
-def extrai_emails(texto: Texto) -> list:
+@router.post("/emails", response_model=List[str])
+def extrai_emails(texto: Texto):
     """ Procura emails mencionados no documento. """
     exp = re.compile(r"([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)")
     emails = exp.findall(texto.texto)

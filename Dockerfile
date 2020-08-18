@@ -8,4 +8,4 @@ WORKDIR /code
 COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 
-CMD uvicorn main:app --reload
+CMD uvicorn app.main:app --reload
