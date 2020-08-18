@@ -1,3 +1,6 @@
+# Dados do python
 __pycache__
+.pytes_cache
 
+# IDEs
 .vscode/
