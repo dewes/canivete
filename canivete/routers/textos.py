@@ -1,7 +1,10 @@
 import re
+
 from fastapi import APIRouter
 from pydantic import BaseModel, Field
-from typing import Optional, List
+from typing import Optional, List, Set
+
+import spacy
 
 router = APIRouter()
 
@@ -24,9 +27,14 @@ def le_texto(texto: str):
     return texto
 
 
-@router.post("/nomes")
+@router.post("/nomes", response_model=List[str])
 def extrai_nomes(texto: Texto):
-    return None
+    """ Extrai nomes dentro do texto. Especificamente para Português. """
+    nlp = spacy.load("pt_core_news_sm")
+    doc = nlp(texto.texto)
+    # Utiliza um Set para remover duplicatas
+    nomes = [ent.text for ent in doc.ents if ent.label_ == 'PER']
+    return set(nomes)
 
 
 @router.post("/emails", response_model=List[str])

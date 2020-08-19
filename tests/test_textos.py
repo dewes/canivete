@@ -26,3 +26,10 @@ def test_extrai_telefone():
         })
     assert response.status_code == 200
     assert response.json() == ['11999999999', '6112341234', '(21)12345-6789']
+
+
+def test_extrai_nomes():
+    response = client.post("/nomes",
+                           json={"texto": "Nome: José Francisco Souza Xavier e trabalha longe."})
+    assert response.status_code == 200
+    assert response.json() == ['José Francisco Souza Xavier']
